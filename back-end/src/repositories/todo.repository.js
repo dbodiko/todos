@@ -9,7 +9,7 @@ class TodoRepository {
     return todoModel.getAll();
   }
   async create(object) {
-    logger.info(`TodoRepository. Create todo request`, object);
+    logger.info(`-----------------------TodoRepository. Create todo request`, object);
     return todoModel.create(object);
   }
   async deleteOne(id) {

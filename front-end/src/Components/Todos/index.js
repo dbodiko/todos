@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import { Toast } from "react-bootstrap";
 
-import ListItem from "../ListItem";
 import CreateItem from "../CreateItem";
-import EditItem from "../EditItem";
 import FiltersBar from "../Filters";
 import Pages from "../Pagination";
 
@@ -13,10 +11,13 @@ import { FILTERS } from "../../utils";
 import useUserData from "../../hooks/useUserData";
 
 import "./styles.css";
+import TodoItem from "../TodoItem";
+import TodoEdit from "../TodoEdit";
+import TodoShare from "../TodoShare";
 
 const LIMIT = 10;
 
-const List = () => {
+const Todos = () => {
   const api = useApi();
   const userData = useUserData();
   const notifications = useNotifications();
@@ -28,6 +29,7 @@ const List = () => {
     page: undefined,
   });
   const [selectedTodo, setSelectedTodo] = useState(null);
+  const [shareTodo, setShareTodo] = useState(false)
   const [showToast, setShowToast] = useState({ visibility: false, text: "" });
   const [filterType, setFilterType] = useState(FILTERS.ALL);
 
@@ -55,9 +57,9 @@ const List = () => {
     setSelectedTodo(todos.data.find((todo) => todo.id === id));
   };
 
-  const handleSave = async ({ id, text }) => {
+  const handleSave = async ({ id, text, sharedWith }) => {
     try {
-      await api.updateTodo(id, { text });
+      await api.updateTodo(id, { text, sharedWith });
       getAllTodos();
       handleClose();
     } catch (error) {
@@ -67,8 +69,13 @@ const List = () => {
     setShowToast({ visibility: true, text: "Todo successfully updated" });
   };
 
+  const handleShow = (id) => {
+    setShareTodo(todos.data.find((todo) => todo.id === id))
+  };
+
   const handleClose = () => {
     setSelectedTodo(null);
+    setShareTodo(false)
   };
 
   const handleRemove = async (id) => {
@@ -137,22 +144,29 @@ const List = () => {
       />
       <div className="list__items">
         {filteredTodo().map((todo) => (
-          <ListItem
+          <TodoItem
             key={todo.id}
             handleRemove={handleRemove}
             handleEdit={handleEdit}
             handleCheck={handleCheck}
+            handleShow={handleShow}
             {...todo}
           />
         ))}
       </div>
+      <TodoShare
+        show={shareTodo}
+        handleClose={handleClose}
+        handleSave={handleSave}
+        {...shareTodo}
+      />
       <Pages
         onChange={onChangePage}
         active={todos.page}
         pages={getPagesCount()}
         maxButtons={3}
       />
-      <EditItem
+      <TodoEdit
         show={selectedTodo}
         handleClose={handleClose}
         handleSave={handleSave}
@@ -174,4 +188,4 @@ const List = () => {
   );
 };
 
-export default List;
+export default Todos;

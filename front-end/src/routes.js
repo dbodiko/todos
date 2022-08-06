@@ -2,11 +2,12 @@ import { Routes, Route } from "react-router-dom";
 
 import Login from "./Components/LoginForm";
 import Register from "./Components/RegisterForm";
-import List from "./Components/List";
+import List from "./Components/Todos";
 import NotFound from "./Components/NotFound";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import Layout from "./Components/Layout";
 import Profile from "./Components/Profile";
+import Users from "./Components/Users";
 
 const Index = () => {
   return (
@@ -16,6 +17,7 @@ const Index = () => {
           <Route index element={<List />} />
           <Route path="/list" element={<List />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="admin/users" element={<Users/>}/>
         </Route>
       </Route>
       <Route path="/login" element={<Login />} />

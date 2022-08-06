@@ -1,7 +1,7 @@
 import "./styles.css";
 
-const ListItem = (props) => {
-  const { text, id, isCompleted, handleEdit, handleRemove, handleCheck } =
+const TodoItem = (props) => {
+  const { text, id, isCompleted, handleEdit, handleRemove, handleCheck, handleShow } =
     props;
 
   return (
@@ -14,6 +14,12 @@ const ListItem = (props) => {
         {text}
       </p>
       <div className="list-item__btns-wrapper">
+          <button
+              className="button-10" role="button"
+              onClick={() => handleShow(id)}
+          >
+              Share todo
+          </button>
         <input
           onClick={() => handleCheck(id)}
           className="list-item__checkbox"
@@ -26,4 +32,4 @@ const ListItem = (props) => {
   );
 };
 
-export default ListItem;
+export default TodoItem;

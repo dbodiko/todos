@@ -6,7 +6,7 @@ import { logger } from "../utils/logger.js";
 class TodoService {
   async createTodo({ text }, user) {
     logger.info(`TodoService. Got create todo request`, { text });
-    return todoMongoRepository.create({ text, owner: user._id });
+    return await todoMongoRepository.create({ text, owner: user._id });
   }
 
   async getAllTodos({ limit = 10, page = 0 }, user) {
@@ -24,14 +24,17 @@ class TodoService {
       total,
     };
   }
+
   async getById(id, user) {
     logger.info(`TodoService. Get by id request ${id}`);
     const todo = await todoMongoRepository.getOwnOrSharedTodoById(id, user);
     return todo.getPublickTodoWithUsers();
   }
+
   async searchByText(text) {
     return todoMongoRepository.searchByText(text);
   }
+
   async update({ id, todoData, user }) {
     logger.info(`TodoService. Got update todo request ${id}`);
     const todo = await todoMongoRepository.getOwnTodoById(id, user);
@@ -48,6 +51,7 @@ class TodoService {
 
     return newTodo.getPublickTodoWithUsers();
   }
+
   async deleteOne(id, user) {
     const todo = await todoMongoRepository.getOwnTodoById(id, user);
     if (!todo) {

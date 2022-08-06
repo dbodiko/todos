@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import "./styles.css";
 
-const EditItem = ({ show, id, text, handleClose, handleSave }) => {
+const TodoEdit = ({ show, id, text, handleClose, handleSave }) => {
   useEffect(() => {
     setNewText(text);
   }, [text]);
@@ -21,7 +21,7 @@ const EditItem = ({ show, id, text, handleClose, handleSave }) => {
     <div className="edit-todo-form">
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>EditTodo</Modal.Title>
+          <Modal.Title>EditTodo {id}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="edit-todo-form__input-wrapper">
@@ -59,4 +59,4 @@ const EditItem = ({ show, id, text, handleClose, handleSave }) => {
   );
 };
 
-export default EditItem;
+export default TodoEdit;

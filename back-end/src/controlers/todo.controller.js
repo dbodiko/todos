@@ -7,6 +7,7 @@ class TodoController {
     this.service = service;
     this.log = logger;
   }
+
   async getAllTodos(req, res) {
     this.log.info("Got getAllTodos request");
     let { page, limit } = req.query;
@@ -19,12 +20,13 @@ class TodoController {
     const todos = await this.service.getAllTodos({ page, limit }, req.user);
     res.json(todos);
   }
+
   // text, isCompleted, id
   async createTodo(req, res) {
-    this.log.info("Got createTodo request");
     const todo = await this.service.createTodo(req.body, req.user);
     res.json(todo);
   }
+
   async deleteOne(req, res) {
     const id = req.params.id;
     this.log.info("Got deleteOne request", { id: `${id}` });
@@ -44,6 +46,7 @@ class TodoController {
   async update(req, res) {
     const id = req.params.id;
     const todo = req.body;
+    console.log(`++++++++++++++++${req.params}`)
     this.log.info("Got update request", { id, todo });
 
     const newTodo = await this.service.update({
@@ -55,6 +58,7 @@ class TodoController {
 
     res.json(newTodo);
   }
+
   async searchByText(req, res) {
     this.log.info("Got queryLike request");
     const { text } = req.query;

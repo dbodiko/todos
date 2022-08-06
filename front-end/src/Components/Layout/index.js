@@ -1,8 +1,10 @@
 import { Outlet, NavLink } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import useUserData from "../../hooks/useUserData";
 
 const Layout = () => {
   const auth = useAuth();
+  const userData = useUserData();
 
   const handleLogout = () => {
     auth.singOut();
@@ -10,6 +12,9 @@ const Layout = () => {
   return (
     <div>
       <nav>
+        {userData.role === "admin" && <button>
+          <NavLink to="admin/users">Users</NavLink>
+        </button>}
         <button>
           <NavLink to="list"> List</NavLink>
         </button>

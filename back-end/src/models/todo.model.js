@@ -26,7 +26,7 @@ class TodoModel {
     }
     update(id, data) {
         logger.info(`TodoModel. Update todo request id=${id}`, {data})
-        
+
         const todo = this.data.get(id);
         logger.info(`TodoModel. Got todo from DB`, {todo})
 

@@ -124,6 +124,7 @@ const RegisterForm = () => {
           disabled={validateForm()}
           className="login-form__submit-btn"
           type="submit"
+          onClick={() => onChangeFormValue()}
         >
           Register
         </button>

@@ -29,6 +29,28 @@ const userSchema = new Schema(
       hasRole(role) {
         return this.role === role;
       },
+        getPublicUsers() {
+            const {
+                _id,
+                firstName,
+                lastName,
+                email,
+                dateOfBirth,
+                role,
+                createdAt,
+                updatedAt,
+            } = this._doc;
+            return {
+                id: _id,
+                firstName,
+                lastName,
+                email,
+                dateOfBirth,
+                role,
+                createdAt,
+                updatedAt,
+            };
+        },
     },
   }
 );

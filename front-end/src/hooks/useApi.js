@@ -2,7 +2,8 @@ import axios from "axios";
 import { useAuth } from "./useAuth";
 
 export default function useApi() {
-  const apiUrl = `${process.env.REACT_APP_SERVER_URL}/v1`; // TODO: you should have .env file in /front-end folder. Look at .env.example
+  // const apiUrl = `${process.env.REACT_APP_SERVER_URL}/v1`; // TODO: you should have .env file in /front-end folder. Look at .env
+  const apiUrl = `http://localhost:5000/v1`
   const auth = useAuth();
 
   const axiosRequest = async (method, uri, data, headers) => {
@@ -25,17 +26,23 @@ export default function useApi() {
   };
 
   return {
-    register: (data) => axiosRequest("POST", "/auth/register", data),
+    register: (data) => axiosRequest("POST", "auth/register", data),
     login: (data) =>
-      axiosRequest("POST", "/auth/login", data).then(({ data }) => data),
+      axiosRequest("POST", "auth/login", data).then(({ data }) => data),
     me: () => axiosRequest("GET", "/auth/me").then(({ data }) => data),
     createTodo: (data) =>
       axiosRequest("POST", "/todos", data).then(({ data }) => data),
     getAllTodos: (data) =>
       axiosRequest("GET", "/todos", data).then(({ data }) => data),
+    getAllUsers: (data) =>
+        axiosRequest("GET", "admin/getAllUsers", data).then(({ data }) => data),
     deleteTodo: (id) =>
       axiosRequest("DELETE", `/todos/${id}`).then(({ data }) => data),
+    deleteUser: (id) =>
+        axiosRequest("DELETE", `/admin/${id}`).then(({ data }) => data),
     updateTodo: (id, data) =>
       axiosRequest("PUT", `/todos/${id}`, data).then(({ data }) => data),
+    updateUser: (id, data) =>
+        axiosRequest("PUT", `/admin/${id}`, data).then(({ data }) => data),
   };
 }

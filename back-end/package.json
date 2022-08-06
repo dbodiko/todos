@@ -8,7 +8,7 @@
     "dev": "nodemon app.js"
   },
   "type": "module",
-  "author": "alex@inoxoft.com",
+  "author": "Bogdan",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -27,6 +27,6 @@
     "winston": "^3.7.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.19"
   }
 }

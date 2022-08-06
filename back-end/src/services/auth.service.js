@@ -15,7 +15,7 @@ class AuthService {
     const salt = bcrypt.genSaltSync(10);
     return bcrypt.hashSync(password, salt);
   }
-  async register({ firstName, lastName, email, password, dateOfBirth }) {
+  async register({ firstName, lastName, email, password, dateOfBirth}) {
     logger.info(message("Got register request"), {
       firstName,
       lastName,
@@ -53,10 +53,9 @@ class AuthService {
     const isMach = bcrypt.compareSync(password, user.password);
     if (!isMach) {
       logger.warn(message("Wrong user password"), { email });
-      throw new HTTPError("Wrond email or password", 401);
+      throw new HTTPError("Wrong email or password", 401);
     }
     logger.warn(message("Login request success"), { email });
-
     return { access_token: jwt.sign({ id: user._id }, settings.jwtSecret) };
   }
 

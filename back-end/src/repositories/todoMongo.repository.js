@@ -52,7 +52,12 @@ class TodoMongoRepository {
   async create(object) {
     logger.info(`TodoRepository. Create todo request`, object);
     const todo = new Todos(object);
-    await todo.save();
+
+    console.log(todo)
+    //await todo.save();
+
+    const result = await todo.save();
+    logger.info(`TodoRepository. Finish create todo request`, result);
 
     return todo.getPublickTodo();
   }
