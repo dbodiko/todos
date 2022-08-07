@@ -29,7 +29,7 @@ const Todos = () => {
     page: undefined,
   });
   const [selectedTodo, setSelectedTodo] = useState(null);
-  const [shareTodo, setShareTodo] = useState(false)
+  const [shareTodo, setShareTodo] = useState(null)
   const [showToast, setShowToast] = useState({ visibility: false, text: "" });
   const [filterType, setFilterType] = useState(FILTERS.ALL);
 
@@ -70,7 +70,9 @@ const Todos = () => {
   };
 
   const handleShow = (id) => {
-    setShareTodo(todos.data.find((todo) => todo.id === id))
+    let todo = todos.data.find((todo) => todo.id === id);
+    setShareTodo(todo);
+    //setShareTodo(todos.data.find((todo) => todo.id === id))
   };
 
   const handleClose = () => {
@@ -158,7 +160,8 @@ const Todos = () => {
         show={shareTodo}
         handleClose={handleClose}
         handleSave={handleSave}
-        {...shareTodo}
+        text={shareTodo?.text}
+        sharedWith={shareTodo?.sharedWith}
       />
       <Pages
         onChange={onChangePage}

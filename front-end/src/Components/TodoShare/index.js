@@ -1,19 +1,16 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import ListGroup from 'react-bootstrap/ListGroup';
-import {useState} from "react";
 
-const TodoShare = ({show, handleClose, id, handleSave, text}) => {
+import {useEffect, useState} from "react";
+import TodoSharedWithItem from "../TodoSharedWithList";
 
-    const [sharedWithId, setSharedWithId] = useState('62dc2aad8da52d8f912ddcb4')
 
-    const onChangeEmail = (e) => {
-        setSharedWithId(e.target.value)
-    }
+const TodoShare = ({show, handleClose, id, handleSave, text, sharedWith}) => {
 
     const handleShare = () => {
-        handleSave({sharedWith: sharedWithId, id})
+        console.log(sharedWith)
+        //handleSave({sharedWith: sharedWithId, id})
     }
 
     return (
@@ -30,8 +27,8 @@ const TodoShare = ({show, handleClose, id, handleSave, text}) => {
                                 type="email"
                                 placeholder="name@example.com"
                                 autoFocus
-                                onChange={onChangeEmail}
-                                defaultValue={sharedWithId}
+                               // onChange={onChangeSharedId}
+                                //defaultValue={sharedWithId}
                             />
                         </Form.Group>
                         <Form.Group
@@ -39,10 +36,11 @@ const TodoShare = ({show, handleClose, id, handleSave, text}) => {
                             controlId="exampleForm.ControlTextarea1"
                         >
                             <h5>Users for whom the todo is distributed</h5>
-                            <ListGroup>
-                                <ListGroup.Item>Cras justo odio</ListGroup.Item>
-                                <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                            </ListGroup>
+
+                            {sharedWith?.length > 0 && sharedWith.map((user) => (
+                                <TodoSharedWithItem key={user.id} {...user}/>
+                            ))}
+
                         </Form.Group>
                     </Form>
                 </Modal.Body>
